@@ -15,8 +15,44 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+
+//    self.ADView = [[AdvertisingView alloc] initWithFrame:CGRectMake(0, 200, 320, 144)];
+//    [self.window addSubview:_ADView];
+    self.player = [[ImagePlayerView alloc] initWithFrame:CGRectMake(0, 0, 320, 140)];
+    self.imageURLs = @[[NSURL URLWithString:@"http://www.ghzw.cn/wzsq/UploadFiles_9194/201109/20110915154150869.bmp"],
+                       [NSURL URLWithString:@"http://sudasuta.com/wp-content/uploads/2013/10/10143181686_375e063f2c_z.jpg"],
+                       [NSURL URLWithString:@"http://www.yancheng.gov.cn/ztzl/zgycddhsdgy/xwdt/201109/W020110902584601289616.jpg"],
+                       [NSURL URLWithString:@"http://fzone.oushinet.com/bbs/data/attachment/forum/201208/15/074140zsb6ko6hfhzrb40q.jpg"]];
+    [self.player initWithCount:self.imageURLs.count delegate:self];
+    self.player.scrollInterval = 5.0f;
+    
+    // adjust pageControl position
+    self.player.pageControlPosition = ICPageControlPosition_BottomRight;
+    
+    // hide pageControl or not
+     self.player.hidePageControl = NO;
+    [self.window addSubview:self.player];
     [self.window makeKeyAndVisible];
     return YES;
+}
+#pragma mark - ImagePlayerViewDelegate
+- (void)imagePlayerView:(ImagePlayerView *)imagePlayerView loadImageForImageView:(UIImageView *)imageView index:(NSInteger)index
+{
+    // recommend to use SDWebImage lib to load web image
+    //    [imageView setImageWithURL:[self.imageURLs objectAtIndex:index] placeholderImage:nil];
+    
+    imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self.imageURLs objectAtIndex:index]]];
+}
+
+- (void)imagePlayerView:(ImagePlayerView *)imagePlayerView didTapAtIndex:(NSInteger)index
+{
+    NSLog(@"did tap index = %d", (int)index);
+}
+
+- (void)initADView:(NSArray*)images
+{
+    
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

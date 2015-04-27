@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "AdvertisingView.h"
+#import "ImagePlayerView.h"
+@interface AppDelegate : UIResponder <UIApplicationDelegate,ImagePlayerViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic,strong) AdvertisingView *ADView;
+@property (nonatomic,strong) ImagePlayerView *player;
 
+@property (nonatomic, strong) NSArray *imageURLs;
 @end
